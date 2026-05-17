@@ -33,6 +33,7 @@ RDDPM/
 
 ```bash
 pip install -r requirements.txt
+pip install huggingface_hub   # for downloading pretrained weights
 ```
 
 ## Dataset Preparation
@@ -62,6 +63,28 @@ python train_diffusion.py --config configs.yml
 - Checkpoints are saved to `checkpoints/` every `snapshot_freq` steps.
 - Validation patches are saved to `validation/` every `validation_freq` steps.
 - Training resumes automatically if a checkpoint exists at `training.resume`.
+
+## Pretrained Weights
+
+Pretrained weights are hosted on Hugging Face: [Teriri1999/R-DDPM](https://huggingface.co/Teriri1999/R-DDPM)
+
+Download with Python:
+
+```python
+from huggingface_hub import hf_hub_download
+
+hf_hub_download(
+    repo_id="Teriri1999/R-DDPM",
+    filename="diffusion_model.pth",
+    local_dir="checkpoints/",
+)
+```
+
+Or via the CLI:
+
+```bash
+huggingface-cli download Teriri1999/R-DDPM diffusion_model.pth --local-dir checkpoints/
+```
 
 ## Inference
 
