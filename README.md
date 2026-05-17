@@ -6,25 +6,22 @@ A conditional denoising diffusion probabilistic model (DDPM) for SAR despeckling
 
 ```
 RDDPM/
-├── configs.yml              # All hyperparameters and paths
-├── train_diffusion.py       # Training entry point
-├── eval_diffusion.py        # Inference entry point
-├── calculate_psnr_ssim.py   # Metric evaluation (PSNR / SSIM)
-├── dataset.py               # Dataset and dataloader
+├── configs.yml              
+├── train_diffusion.py       
+├── eval_diffusion.py        
+├── calculate_psnr_ssim.py   
+├── dataset.py               
 ├── models/
-│   ├── ddm.py               # DenoisingDiffusion, EMAHelper, loss
-│   ├── restoration.py       # DiffusiveRestoration (patch-based inference)
-│   └── unet.py              # DiffusionUNet architecture
+│   ├── ddm.py               
+│   ├── restoration.py       
+│   └── unet.py              
 ├── utils/
-│   ├── logging.py           # Checkpoint and image I/O
-│   ├── metrics.py           # PSNR / SSIM implementation
-│   ├── optimize.py          # Optimizer factory
-│   └── sampling.py          # DDIM generalized steps (with overlap)
-├── scripts/                 # Data preprocessing utilities
-│   ├── add_noise.py
-│   ├── gray2RGB.py
-│   ├── img2png.py
-│   └── tiff2jpg.py
+│   ├── logging.py           
+│   ├── metrics.py           
+│   ├── optimize.py          
+│   └── sampling.py          
+├── scripts/                 
+│   └── add_noise.py
 ├── requirements.txt
 └── .gitignore
 ```
