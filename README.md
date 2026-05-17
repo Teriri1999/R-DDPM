@@ -16,11 +16,11 @@ Organize your dataset in the following structure:
 ```
 data/
 ├── train/
-│   ├── input/      # degraded images
-│   └── target/     # clean ground-truth images
+│   ├── input/      # degraded SAR images
+│   └── target/     # clean SAR ground-truth images
 └── test/
-    ├── input/      # degraded images
-    └── target/     # clean ground-truth images (required by the dataloader)
+    ├── input/      # degraded SAR images
+    └── target/     # clean SAR ground-truth images (required by the dataloader)
 ```
 
 - Filenames in `input/` and `target/` must be **paired in sorted order**.
