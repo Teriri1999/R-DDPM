@@ -2,30 +2,6 @@
 
 A conditional denoising diffusion probabilistic model (DDPM) for SAR despeckling.
 
-## Project Structure
-
-```
-RDDPM/
-├── configs.yml              
-├── train_diffusion.py       
-├── eval_diffusion.py        
-├── calculate_psnr_ssim.py   
-├── dataset.py               
-├── models/
-│   ├── ddm.py               
-│   ├── restoration.py       
-│   └── unet.py              
-├── utils/
-│   ├── logging.py           
-│   ├── metrics.py           
-│   ├── optimize.py          
-│   └── sampling.py          
-├── scripts/                 
-│   └── add_noise.py
-├── requirements.txt
-└── .gitignore
-```
-
 ## Requirements
 
 ```bash
