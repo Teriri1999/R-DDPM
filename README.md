@@ -53,32 +53,6 @@ data/
 - For inference, image dimensions should be multiples of 16 (the dataloader will auto-resize if not).
 - For preprocessing utilities (noise addition, format conversion), see `scripts/`.
 
-## Configuration
-
-All settings are managed in `configs.yml`:
-
-```yaml
-data:
-    image_size: 64          # training patch size
-    train_data_dir: "data/train/"
-    test_data_dir:  "data/test/"
-    test_save_dir:  "results/"
-    grid_r: 16              # overlap stride for patch inference
-
-training:
-    batch_size: 4
-    n_epochs: 50
-    snapshot_freq: 10000    # checkpoint save interval (steps)
-    resume: 'checkpoints/diffusion_model'   # load/save path
-
-sampling:
-    sampling_timesteps: 25  # DDIM steps (< num_diffusion_timesteps)
-
-optim:
-    optimizer: "Adam"
-    lr: 0.00002
-```
-
 ## Training
 
 ```bash
