@@ -1,0 +1,47 @@
+# Datasets
+data/
+GUD_real/
+GUD_syn/
+SARship_real/
+SARship_syn/
+TGRS/
+Sentinel-1 dataset/
+*.zip
+
+# Model checkpoints and weights
+checkpoints/
+pretrained_model/
+pretrained_model1/
+*.pth
+*.pt
+*.ckpt
+
+# Outputs
+results/
+validation/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,122 @@
+# SAR despeckling via regional denoising diffusion probabilistic model
+
+A conditional denoising diffusion probabilistic model (DDPM) for SAR despeckling.
+
+## Project Structure
+
+```
+RDDPM/
+├── configs.yml              # All hyperparameters and paths
+├── train_diffusion.py       # Training entry point
+├── eval_diffusion.py        # Inference entry point
+├── calculate_psnr_ssim.py   # Metric evaluation (PSNR / SSIM)
+├── dataset.py               # Dataset and dataloader
+├── models/
+│   ├── ddm.py               # DenoisingDiffusion, EMAHelper, loss
+│   ├── restoration.py       # DiffusiveRestoration (patch-based inference)
+│   └── unet.py              # DiffusionUNet architecture
+├── utils/
+│   ├── logging.py           # Checkpoint and image I/O
+│   ├── metrics.py           # PSNR / SSIM implementation
+│   ├── optimize.py          # Optimizer factory
+│   └── sampling.py          # DDIM generalized steps (with overlap)
+├── scripts/                 # Data preprocessing utilities
+│   ├── add_noise.py
+│   ├── gray2RGB.py
+│   ├── img2png.py
+│   └── tiff2jpg.py
+├── requirements.txt
+└── .gitignore
+```
+
+## Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+## Dataset Preparation
+
+Organize your dataset in the following structure:
+
+```
+data/
+├── train/
+│   ├── input/      # degraded images
+│   └── target/     # clean ground-truth images
+└── test/
+    ├── input/      # degraded images
+    └── target/     # clean ground-truth images (required by the dataloader)
+```
+
+- Filenames in `input/` and `target/` must be **paired in sorted order**.
+- For inference, image dimensions should be multiples of 16 (the dataloader will auto-resize if not).
+- For preprocessing utilities (noise addition, format conversion), see `scripts/`.
+
+## Configuration
+
+All settings are managed in `configs.yml`:
+
+```yaml
+data:
+    image_size: 64          # training patch size
+    train_data_dir: "data/train/"
+    test_data_dir:  "data/test/"
+    test_save_dir:  "results/"
+    grid_r: 16              # overlap stride for patch inference
+
+training:
+    batch_size: 4
+    n_epochs: 50
+    snapshot_freq: 10000    # checkpoint save interval (steps)
+    resume: 'checkpoints/diffusion_model'   # load/save path
+
+sampling:
+    sampling_timesteps: 25  # DDIM steps (< num_diffusion_timesteps)
+
+optim:
+    optimizer: "Adam"
+    lr: 0.00002
+```
+
+## Training
+
+```bash
+python train_diffusion.py --config configs.yml
+```
+
+- Checkpoints are saved to `checkpoints/` every `snapshot_freq` steps.
+- Validation patches are saved to `validation/` every `validation_freq` steps.
+- Training resumes automatically if a checkpoint exists at `training.resume`.
+
+## Inference
+
+```bash
+python eval_diffusion.py --config configs.yml
+```
+
+Restored images are saved to `results/`. Each image is processed using overlapping patches (stride = `grid_r`) and averaged at overlapping regions.
+
+## Evaluation
+
+After inference, compute PSNR and SSIM against ground-truth:
+
+```bash
+python calculate_psnr_ssim.py
+```
+
+## Citation
+
+If you find this work useful, please cite:
+
+```bibtex
+@inproceedings{hu2024sar,
+  title={SAR despeckling via regional denoising diffusion probabilistic model},
+  author={Hu, Xuran and Xu, Ziqiang and Chen, Zhihan and Feng, Zhenpeng and Zhu, Mingzhe and Stankovi{\'c}, Ljubi{\v{s}}a},
+  booktitle={IGARSS 2024-2024 IEEE International Geoscience and Remote Sensing Symposium},
+  pages={7226--7230},
+  year={2024},
+  organization={IEEE}
+}
+```
+
