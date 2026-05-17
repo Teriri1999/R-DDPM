@@ -2,6 +2,10 @@
 
 A conditional denoising diffusion probabilistic model (DDPM) for SAR despeckling.
 
+<p align="center">
+  <img src="./figures/Regional_restoration.png" width="500">
+</p>
+
 ## Requirements
 
 ```bash
